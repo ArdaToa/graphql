@@ -1,0 +1,47 @@
+package com.ardatoa.graphql.model;
+
+import com.ardatoa.graphql.model.enums.CompanyType;
+import jakarta.persistence.*;
+import lombok.*;
+
+import java.util.List;
+
+@Entity
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name="merchant")
+
+public class Merchant {
+
+    @Id
+    @Column(name="ID")
+    @GeneratedValue(strategy =GenerationType.IDENTITY)
+    private Integer id;
+
+    @Column(name = "NAME", nullable = false, length = 50)
+    private String name;
+
+    @Column(name = "SURNAME", nullable = false, length = 50)
+    private String surname;
+
+    @Column(name = "Tax_Number", nullable = false, length = 100)
+    private String taxNumber;
+
+    @Column(name = "IdentityNumber", nullable = false, length = 11)
+    private String identityNumber;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "Company_Type", nullable = false)
+    private CompanyType companyType;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "Address_Id", referencedColumnName = "ID", nullable = false)
+    private Address address;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "merchant")
+    private List<Contact> contacts;
+
+}

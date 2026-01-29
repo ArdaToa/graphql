@@ -1,0 +1,43 @@
+type ReadAddress {
+
+
+
+}
+
+input CreateMerchant {
+
+    name: String!
+    surname: String!
+    taxNumber: String!
+    identityNumber: String!
+    companyType: CompanyType!
+    address: CreateAddress
+    contacts: [CreateMerchant]
+
+}
+
+input CreateContact {
+
+    name: String!
+    surname: String!
+    email: String!
+    phone: String!
+
+
+}
+
+input CreateAddress {
+
+    county: String!
+    city: String!
+    country: String!
+    zipcode: String!
+
+}
+
+enum CompanyType {
+
+    INDIVIDUAL,
+    COOPERATIVE
+
+}
