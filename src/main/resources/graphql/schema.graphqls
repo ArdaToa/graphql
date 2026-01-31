@@ -1,6 +1,45 @@
+type Mutation {
+
+    createMerchant(merchant: CreateMerchant): ReadMerchant
+
+}
+
+type Query {
+
+    getMerchant: [ReadMerchant]
+    getMerchantById(id: ID): ReadMerchant
+
+}
+
+type ReadMerchant {
+
+    id: ID
+    name: String!
+    surname: String!
+    taxNumber: String!
+    identityNumber: String!
+    companyType: CompanyType!
+    address: ReadAddress
+    contacts: [ReadContact]
+}
+
+type ReadContact {
+
+    id: ID
+    name: String
+    surname: String
+    email: String
+    phone: String
+
+}
+
 type ReadAddress {
 
-
+    id: ID
+    city: String!
+    country: String!
+    county: String!
+    zipCode: String!
 
 }
 
@@ -12,7 +51,7 @@ input CreateMerchant {
     identityNumber: String!
     companyType: CompanyType!
     address: CreateAddress
-    contacts: [CreateMerchant]
+    contacts: [CreateContact]
 
 }
 
@@ -31,7 +70,7 @@ input CreateAddress {
     county: String!
     city: String!
     country: String!
-    zipcode: String!
+    zipCode: String!
 
 }
 
