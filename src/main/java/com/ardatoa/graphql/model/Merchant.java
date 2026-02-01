@@ -4,6 +4,7 @@ import com.ardatoa.graphql.model.enums.CompanyType;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.OffsetDateTime;
 import java.util.List;
 
 @Entity
@@ -14,7 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @Table(name="merchant")
 
-public class Merchant {
+public class Merchant extends BaseEntity {
 
     @Id
     @Column(name="ID")
@@ -41,7 +42,16 @@ public class Merchant {
     @JoinColumn(name = "Address_Id", referencedColumnName = "ID", nullable = false)
     private Address address;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "merchant")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private List<Contact> contacts;
+
+
+    @PrePersist
+    void prePersist() {
+
+        this.ipAddress = "11.33.44.55";
+        this.createdAt = OffsetDateTime.now();
+
+    }
 
 }

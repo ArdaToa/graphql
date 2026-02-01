@@ -1,3 +1,5 @@
+scalar Date
+
 type Mutation {
 
     createMerchant(merchant: CreateMerchant): ReadMerchant
@@ -6,12 +8,12 @@ type Mutation {
 
 type Query {
 
-    getMerchant: [ReadMerchant]
+    getMerchants: [ReadMerchant]
     getMerchantById(id: ID): ReadMerchant
 
 }
 
-type ReadMerchant {
+type ReadMerchant implements BaseEntity{
 
     id: ID
     name: String!
@@ -19,6 +21,8 @@ type ReadMerchant {
     taxNumber: String!
     identityNumber: String!
     companyType: CompanyType!
+    ipAddress: String
+    createdAt: Date
     address: ReadAddress
     contacts: [ReadContact]
 }
@@ -40,6 +44,13 @@ type ReadAddress {
     country: String!
     county: String!
     zipCode: String!
+
+}
+
+interface BaseEntity{
+
+    ipAddress: String
+    createdAt: Date
 
 }
 
